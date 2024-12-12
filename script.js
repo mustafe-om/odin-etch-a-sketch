@@ -23,7 +23,19 @@ function makeGrid(grid) {
           e.target.classList.add("highlight");
         }
       });
+      div.addEventListener("touchstart", (e) => {
+        isMouseDown = true;
+        if (isMouseDown) {
+          e.target.classList.add("highlight");
+        }
+      });
       div.addEventListener("mousemove", (e) => {
+        const randomIndex = Math.floor(Math.random() * 3);
+        if (isMouseDown) {
+          e.target.style.backgroundColor = `${color[randomIndex]}`;
+        }
+      });
+      div.addEventListener("touchmove", (e) => {
         const randomIndex = Math.floor(Math.random() * 3);
         if (isMouseDown) {
           e.target.style.backgroundColor = `${color[randomIndex]}`;
