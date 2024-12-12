@@ -23,19 +23,7 @@ function makeGrid(grid) {
           e.target.classList.add("highlight");
         }
       });
-      div.addEventListener("touchstart", (e) => {
-        isMouseDown = true;
-        if (isMouseDown) {
-          e.target.classList.add("highlight");
-        }
-      });
       div.addEventListener("mousemove", (e) => {
-        const randomIndex = Math.floor(Math.random() * 3);
-        if (isMouseDown) {
-          e.target.style.backgroundColor = `${color[randomIndex]}`;
-        }
-      });
-      div.addEventListener("touchmove", (e) => {
         const randomIndex = Math.floor(Math.random() * 3);
         if (isMouseDown) {
           e.target.style.backgroundColor = `${color[randomIndex]}`;
@@ -47,6 +35,22 @@ function makeGrid(grid) {
       container.addEventListener("mouseleave", (e) => {
         isMouseDown = false;
       });
+      div.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        isMouseDown = true;
+        div.style.backgroundColor =
+          color[Math.floor(Math.random() * color.length)];
+      });
+      div.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const target = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (target && target.classList.contains("square")) {
+          target.style.backgroundColor =
+            color[Math.floor(Math.random() * color.length)];
+        }
+      });
+
       // handling buttons
       eraseBtn.addEventListener("click", () => {
         div.style.backgroundColor = "white";
